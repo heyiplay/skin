@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="MediaPlayerSkin" basedir="." default="">
+	<property environment="env" />
+    <property name="project.root" value="${basedir}" />
+    <property file="build.properties" />
+  
+    <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+	
+	<!--TDTV主题皮肤-->
+	<target name="TDTV_LIVE_BLUE" description="土豆直播用的TV主题皮肤">
+		<antcall target="CompileSkin">
+			<param name="ProjectName" value="tdtv_live_blue"/>
+			<param name="ThemeName" value="tdtv"/>
+			<param name="DocumentClassPath" value="${SOURCE_DIR}/com/tudou/player/skin/MediaPlayerSkin.as"/>
+			<param name="ConfigPath" value="'themes/tdtv/_theme_skin_for_live_blue.config'" />
+			<param name="IncludeLib" value="blue_tdtv_theme_assets.swc" />
+			<param name="IncludeClass" value="com.tudou.player.skin.themes.tdtv._include_classes_for_live" />
+		</antcall>
+	</target>
+	<target name="TDTV_LIVE_ORANGE" description="土豆直播用的TV主题皮肤">
+		<antcall target="CompileSkin">
+			<param name="ProjectName" value="tdtv_live_orange"/>
+			<param name="ThemeName" value="tdtv"/>
+			<param name="DocumentClassPath" value="${SOURCE_DIR}/com/tudou/player/skin/MediaPlayerSkin.as"/>
+			<param name="ConfigPath" value="'themes/tdtv/_theme_skin_for_live_orange.config'" />
+			<param name="IncludeLib" value="orange_tdtv_theme_assets.swc" />
+			<param name="IncludeClass" value="com.tudou.player.skin.themes.tdtv._include_classes_for_live" />
+		</antcall>
+	</target>
+	<target name="TDTV_BLUE" description="土豆TV主题白蓝色皮肤">
+		<antcall target="CompileSkin">
+			<param name="ProjectName" value="tdtv_blue"/>
+			<param name="ThemeName" value="tdtv"/>
+			<param name="DocumentClassPath" value="${SOURCE_DIR}/com/tudou/player/skin/MediaPlayerSkin.as"/>
+			<param name="ConfigPath" value="'themes/tdtv/_theme_skin_blue.config'" />
+			<param name="IncludeLib" value="blue_tdtv_theme_assets.swc" />
+			<param name="IncludeClass" value="com.tudou.player.skin.themes.tdtv._include_classes" />
+		</antcall>
+	</target>
+	
+	<target name="YKWS" description="优酷主题皮肤">
+		<antcall target="CompileSkin">
+			<param name="ProjectName" value="ykws"/>
+			<param name="ThemeName" value="ykws"/>
+			<param name="DocumentClassPath" value="${SOURCE_DIR}/com/tudou/player/skin/MediaPlayerSkin.as"/>
+			<param name="ConfigPath" value="'themes/ykws/_theme_skin.config'" />
+			<param name="IncludeLib" value="ykws_theme_assets.swc" />
+			<param name="IncludeClass" value="com.tudou.player.skin.themes.ykws._include_classes" />
+		</antcall>
+	</target>
+	
+	<!--YKWS主题皮肤-->
+	<target name="YKWS_LIVE" description="优酷主题直播皮肤">
+		<antcall target="CompileSkin">
+			<param name="ProjectName" value="ykws_live"/>
+			<param name="ThemeName" value="ykws"/>
+			<param name="DocumentClassPath" value="${SOURCE_DIR}/com/tudou/player/skin/MediaPlayerSkin.as"/>
+			<param name="ConfigPath" value="'themes/ykws/_theme_skin_for_live.config'" />
+			<param name="IncludeLib" value="ykws_theme_assets.swc" />
+			<param name="IncludeClass" value="com.tudou.player.skin.themes.ykws._include_classes_for_live" />
+		</antcall>
+	</target>
+	<target name="TDTV_ORANGE" description="土豆TV主题黑橙色皮肤">
+		<antcall target="CompileSkin">
+			<param name="ProjectName" value="tdtv_orange"/>
+			<param name="ThemeName" value="tdtv"/>
+			<param name="DocumentClassPath" value="${SOURCE_DIR}/com/tudou/player/skin/MediaPlayerSkin.as"/>
+			<param name="ConfigPath" value="'themes/tdtv/_theme_skin_orange.config'" />
+			<param name="IncludeLib" value="orange_tdtv_theme_assets.swc" />
+			<param name="IncludeClass" value="com.tudou.player.skin.themes.tdtv._include_classes" />
+		</antcall>
+	</target>
+	
+	<!--TDWS主题皮肤-->
+	<target name="TDWS_LIVE" description="直播用的WS主题皮肤">
+		<antcall target="CompileSkin">
+			<param name="ProjectName" value="tdws_for_live"/>
+			<param name="ThemeName" value="tdws"/>
+			<param name="DocumentClassPath" value="${SOURCE_DIR}/com/tudou/player/skin/MediaPlayerSkin.as"/>
+			<param name="ConfigPath" value="'themes/tdws/_theme_skin.config'" />
+			<param name="IncludeLib" value="tdws_theme_assets.swc" />
+			<param name="IncludeClass" value="com.tudou.player.skin.themes.tdws._include_classes" />
+		</antcall>
+	</target>
+	
+    <!--编译皮肤-->
+    <target name="CompileSkin" description="编译皮肤的通用脚本，依赖于个皮肤编译配置">
+		
+		<echo message="================================================="/>
+		<echo message="Compile Tudou Media Player Skin Module"/>
+		<echo message="================================================="/>
+		<echo message="Theme is ${ThemeName}"/>
+		
+		<mxmlc
+			
+			file="${DocumentClassPath}"
+			
+            output="${DEPLOY_DIR}/${ProjectName}.swf"
+			
+			optimize="true"
+			
+			default-background-color="0x000000"
+			
+            debug="${DEBUG}"
+			
+			static-link-runtime-shared-libraries="true"
+			
+			static-rsls="false"
+			
+		>
+			
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			
+			<default-size width="480" height="385"/>
+			
+            <!--设置源代码位置-->
+            <source-path path-element="${SOURCE_DIR}"/>
+			
+			<!--设置嵌入类-->
+			<includes symbol="${IncludeClass}"/>
+			
+			<!--设置动态链接类
+			<externs symbol="com.tudou.player.interfaces.IMediaPlayerModule"/>
+			<externs symbol="com.tudou.player.events.NetStatusEventLevel"/>
+			<externs symbol="com.tudou.player.events.NetStatusCommandCode"/>
+			<externs symbol="com.tudou.player.events.NetStatusEventCode"/>
+			<externs symbol="com.tudou.player.config.StreamType"/>
+			<externs symbol="com.tudou.player.config.ProportionMode"/>
+			<externs symbol="com.tudou.player.config.ColorMode"/-->
+			
+			<!--设置依赖库
+			<compiler.library-path dir="${LIB_PATH}" append="true">
+				<include name="*.swc"/>
+			</compiler.library-path-->
+			
+			<!--设置嵌入库-->
+			<compiler.include-libraries dir="${ASSETS_PATH}" append="true">
+			    <include name="${IncludeLib}" />
+			</compiler.include-libraries-->
+			
+			<!--设置动态库-->
+			<external-library-path dir="${basedir}/../rsl/bin" append="true">  
+                <include name="rsl.swc" />
+            </external-library-path>
+			
+			<!--设置编译参数-->
+			<!--define name="CONFIG::TEST" value="true"/-->
+			<define name="CONFIG::SKIN_CONFIG" value="${ConfigPath}"/>
+        </mxmlc>
+		
+    </target>
+	
+</project>
